@@ -29,7 +29,8 @@ Find a bug or want to request a new feature?  Please let us know by submitting a
 
 ## Contributing
 
-Anyone and everyone is welcome to contribute. 
+Anyone and everyone is welcome to contribute.
+ESRI (UK) Limited at its sole discretion shall accept pull requests 
 
 To do so:
 
