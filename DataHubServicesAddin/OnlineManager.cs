@@ -21,8 +21,6 @@ namespace DataHubServicesAddin
         public static readonly string _DataHubHttp = "http://datahub.esriuk.com/DhMetaData/MetaData.asmx";
         public static readonly string _DataHubHttps = "https://datahub.esriuk.com/DhMetaData/MetaData.asmx";
 
-
-
         #region Data Hub Meta Data
 
 
@@ -173,71 +171,6 @@ namespace DataHubServicesAddin
             }
             return blist;
         }
-
-        #endregion
-
-        #region LocatorHub
-        /// <summary>
-        /// Convert a LocatorHub Config block, so that it correctly references locatorhub
-        /// </summary>
-        /// <param name="inConfig"></param>
-        /// <returns></returns>
-        //internal static LocatorConfig MakeRealConfig(LocatorConfig inConfig)
-        //{
-            //LocatorConfig result = inConfig;
-
-            //// Check the URL begins with DATAHUB:
-            //if (inConfig.Url.StartsWith("DATAHUB:", StringComparison.InvariantCultureIgnoreCase))
-            //{
-            //    // If it does clone it
-            //    result = CloneLocatorConfig(inConfig);
-
-            //    // Remove the DATAHUb bit
-            //    result.Url = inConfig.Url.Substring("DATAHUB:".Length);
-
-            //    // Set the USername, password and Token Authentication
-            //    result.Username = DataHubConfiguration.Current.UserName;
-            //    result.Password = DataHubConfiguration.Current.Password;
-            //    result.TypeOfAuthentication = AuthenticationMode.Token;
-            //}
-            //return result;
-        //}
-
-        ///// <summary>
-        ///// Clones a LocatorHub Config Block
-        ///// </summary>
-        ///// <param name="inConfig"></param>
-        ///// <returns></returns>
-        //internal static LocatorConfig CloneLocatorConfig(LocatorConfig inConfig)
-        //{
-        //    LocatorConfig clone;
-        //    clone = new LocatorConfig();
-        //    clone.PreferredLocatorTarget = inConfig.PreferredLocatorTarget;
-        //    clone.AssemblyFolder = inConfig.AssemblyFolder;
-        //    clone.AssemblyName = inConfig.AssemblyName;
-        //    clone.Description = inConfig.Description;
-        //    clone.LocatorId = inConfig.LocatorId;
-        //    clone.Name = inConfig.Name;
-        //    clone.RemoteLocatorId = inConfig.RemoteLocatorId;
-        //    clone.TypeName = inConfig.TypeName;
-        //    clone.TypeOfConnection = inConfig.TypeOfConnection;
-        //    clone.Url = inConfig.Url;
-        //    clone.UseWireCompression = inConfig.UseWireCompression;
-
-        //    if (inConfig.PlugInSpecificProperties != null)
-        //    {
-        //        clone.PlugInSpecificProperties = new PlugInSpecificConfig();
-
-        //        foreach (PlugInPropertyConfig prop in inConfig.PlugInSpecificProperties.LocatorProperties)
-        //        {
-        //            PlugInPropertyConfig newprop = new PlugInPropertyConfig();
-        //            newprop.Value = prop.Value;
-        //            newprop.Name = prop.Name;
-        //            clone.PlugInSpecificProperties.LocatorProperties.Add(newprop);
-        //        }
-        //    }
-        //    return clone;
-        //}
 
         #endregion
 
