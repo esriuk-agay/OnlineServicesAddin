@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://datahub.esriuk.com/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://datahub.esriuk.com/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://datahub.esriuk.com/">
+      <s:element name="ListDataSets">
+        <s:complexType />
+      </s:element>
+      <s:element name="ListDataSetsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ListDataSetsResult" type="tns:ArrayOfDataSetMetaData" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfDataSetMetaData">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="DataSetMetaData" nillable="true" type="tns:DataSetMetaData" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="DataSetMetaData">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Id" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Abstract" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Thumbnail" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TermsAndConditions" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Detail" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="IsPremium" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="Url" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TokenUrl" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="GazUrl" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="GazId" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ServiceType" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="ListSubscribedDataSets">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="inUsername" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="inPassword" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ListSubscribedDataSetsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ListSubscribedDataSetsResult" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfString">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="ListDataSetsSoapIn">
+    <wsdl:part name="parameters" element="tns:ListDataSets" />
+  </wsdl:message>
+  <wsdl:message name="ListDataSetsSoapOut">
+    <wsdl:part name="parameters" element="tns:ListDataSetsResponse" />
+  </wsdl:message>
+  <wsdl:message name="ListSubscribedDataSetsSoapIn">
+    <wsdl:part name="parameters" element="tns:ListSubscribedDataSets" />
+  </wsdl:message>
+  <wsdl:message name="ListSubscribedDataSetsSoapOut">
+    <wsdl:part name="parameters" element="tns:ListSubscribedDataSetsResponse" />
+  </wsdl:message>
+  <wsdl:portType name="MetaDataSoap">
+    <wsdl:operation name="ListDataSets">
+      <wsdl:input message="tns:ListDataSetsSoapIn" />
+      <wsdl:output message="tns:ListDataSetsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ListSubscribedDataSets">
+      <wsdl:input message="tns:ListSubscribedDataSetsSoapIn" />
+      <wsdl:output message="tns:ListSubscribedDataSetsSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="MetaDataSoap" type="tns:MetaDataSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ListDataSets">
+      <soap:operation soapAction="http://datahub.esriuk.com/ListDataSets" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListSubscribedDataSets">
+      <soap:operation soapAction="http://datahub.esriuk.com/ListSubscribedDataSets" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="MetaDataSoap12" type="tns:MetaDataSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ListDataSets">
+      <soap12:operation soapAction="http://datahub.esriuk.com/ListDataSets" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListSubscribedDataSets">
+      <soap12:operation soapAction="http://datahub.esriuk.com/ListSubscribedDataSets" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="MetaData">
+    <wsdl:port name="MetaDataSoap" binding="tns:MetaDataSoap">
+      <soap:address location="http://datahub.esriuk.com/DhMetaData/MetaData.asmx" />
+    </wsdl:port>
+    <wsdl:port name="MetaDataSoap12" binding="tns:MetaDataSoap12">
+      <soap12:address location="http://datahub.esriuk.com/DhMetaData/MetaData.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

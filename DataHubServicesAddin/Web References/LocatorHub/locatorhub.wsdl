@@ -1,0 +1,829 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://www.esriuk.com/locatorhub" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://www.esriuk.com/locatorhub" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://www.esriuk.com/locatorhub">
+      <s:element name="Rectify">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="LocatorName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Matcher" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Query" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="inFuzzy" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="inReturnCoordinateSystem" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RectifyResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="RectifyResult" nillable="true" type="tns:RectifyResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="RectifyResult">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="TypeOfResult" type="tns:RectifyResultCodes" />
+          <s:element minOccurs="1" maxOccurs="1" name="RectifyRecordScore" type="s:double" />
+          <s:element minOccurs="0" maxOccurs="1" name="MatchedRecord" type="tns:LocatorMatchedRecord" />
+          <s:element minOccurs="0" maxOccurs="1" name="CustomMessage" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="ReturnedCoordinateSystem" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="CoordinateSystemStatus" type="tns:CoordinateProjectionStatus" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="RectifyResultCodes">
+        <s:restriction base="s:string">
+          <s:enumeration value="NoMatchTooVague" />
+          <s:enumeration value="NoMatchNoResult" />
+          <s:enumeration value="CustomMessage" />
+          <s:enumeration value="SingleMatch" />
+          <s:enumeration value="UnrecognisedTarget" />
+          <s:enumeration value="LocatorDoesNotExist" />
+          <s:enumeration value="OperationCancelled" />
+        </s:restriction>
+      </s:simpleType>
+      <s:simpleType name="CoordinateProjectionStatus">
+        <s:restriction base="s:string">
+          <s:enumeration value="NotRequired" />
+          <s:enumeration value="NotPossible" />
+          <s:enumeration value="NoProjectionEngineSupport" />
+          <s:enumeration value="Transformed" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="Rectify_Binary">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="LocatorName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Matcher" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Query" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="inFuzzy" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="inReturnCoordinateSystem" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Rectify_BinaryResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Rectify_BinaryResult" type="s:base64Binary" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Geocode">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="LocatorId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="inMatchTerm" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="inQuery" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="inUseFuzzySearch" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="inReturnCoordinateSystem" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GeocodeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="GeocodeResult" nillable="true" type="tns:GeocodeResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="GeocodeResult">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="TypeOfResult" type="tns:GeoCodeResultCodes" />
+          <s:element minOccurs="0" maxOccurs="1" name="GeocodedLocation" type="tns:Point" />
+          <s:element minOccurs="1" maxOccurs="1" name="GeocodedRecordScore" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="ReturnedCoordinateSystem" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="CoordinateSystemStatus" type="tns:CoordinateProjectionStatus" />
+          <s:element minOccurs="0" maxOccurs="1" name="CustomMessage" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="GeoCodeResultCodes">
+        <s:restriction base="s:string">
+          <s:enumeration value="NoMatchTooVague" />
+          <s:enumeration value="NoMatchNoResult" />
+          <s:enumeration value="CustomMessage" />
+          <s:enumeration value="UnrecognisedTarget" />
+          <s:enumeration value="LocatorDoesNotExist" />
+          <s:enumeration value="OperationCancelled" />
+          <s:enumeration value="GeocodeSuccessful" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="Point">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="X" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="Y" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="Z" nillable="true" type="s:double" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="Geocode_Binary">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="LocatorId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="inMatchTerm" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="inQuery" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="inUseFuzzySearch" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="inReturnCoordinateSystem" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Geocode_BinaryResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Geocode_BinaryResult" type="s:base64Binary" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Match">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="LocatorName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Matcher" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Query" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="inFuzzy" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="inPickedItem" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="inReturnCoordinateSystem" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="inCacheID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="MatchResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="MatchResult" nillable="true" type="tns:MatchResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="MatchResult">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="TypeOfResult" type="tns:MatchResultCodes" />
+          <s:element minOccurs="0" maxOccurs="1" name="PickListItems">
+            <s:complexType>
+              <s:sequence>
+                <s:element minOccurs="0" maxOccurs="unbounded" name="PickItem" nillable="true" type="tns:PickItem" />
+              </s:sequence>
+            </s:complexType>
+          </s:element>
+          <s:element minOccurs="1" maxOccurs="1" name="MatchedRecordScore" type="s:double" />
+          <s:element minOccurs="0" maxOccurs="1" name="MatchedRecord" type="tns:LocatorMatchedRecord" />
+          <s:element minOccurs="0" maxOccurs="1" name="CustomMessage" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="ReturnedCoordinateSystem" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="CoordinateSystemStatus" type="tns:CoordinateProjectionStatus" />
+          <s:element minOccurs="0" maxOccurs="1" name="CacheIdentifier" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="MatchResultCodes">
+        <s:restriction base="s:string">
+          <s:enumeration value="PickList" />
+          <s:enumeration value="NoMatchTooVague" />
+          <s:enumeration value="NoMatchNoResult" />
+          <s:enumeration value="CustomMessage" />
+          <s:enumeration value="SingleMatch" />
+          <s:enumeration value="CachedQueryResultsTimedOut" />
+          <s:enumeration value="UnrecognisedTarget" />
+          <s:enumeration value="LocatorDoesNotExist" />
+          <s:enumeration value="OperationCancelled" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="PickItem">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Score" type="s:double" />
+          <s:element minOccurs="0" maxOccurs="1" name="Description" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="RecordId" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="HasChildren" type="s:boolean" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="Match_Binary">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="LocatorName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Matcher" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Query" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="inFuzzy" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="inPickedItem" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="inReturnCoordinateSystem" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="inCacheID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Match_BinaryResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Match_BinaryResult" type="s:base64Binary" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="FetchRecord">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="inLocatorId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="inMatchTerm" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="inRecordId" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="inRecordIdType" type="tns:RecordIdentifierType" />
+            <s:element minOccurs="1" maxOccurs="1" name="inReturnCoordinateSystem" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:simpleType name="RecordIdentifierType">
+        <s:restriction base="s:string">
+          <s:enumeration value="LocatorFamilyId" />
+          <s:enumeration value="LocatorId" />
+          <s:enumeration value="DatasetFamilyId" />
+          <s:enumeration value="DatasetId" />
+          <s:enumeration value="Custom" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="FetchRecordResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="FetchRecordResult" nillable="true" type="tns:FetchRecordResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="FetchRecordResult">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="TypeOfResult" type="tns:FetchRecordResultCodes" />
+          <s:element minOccurs="0" maxOccurs="1" name="TableData" type="tns:LocatorTable" />
+          <s:element minOccurs="1" maxOccurs="1" name="CoordinateSystemStatus" type="tns:CoordinateProjectionStatus" />
+          <s:element minOccurs="1" maxOccurs="1" name="ReturnedCoordinateSystem" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="FetchRecordResultCodes">
+        <s:restriction base="s:string">
+          <s:enumeration value="NoMatchNoResult" />
+          <s:enumeration value="SingleRecord" />
+          <s:enumeration value="ManyRecords" />
+          <s:enumeration value="UnrecognisedTarget" />
+          <s:enumeration value="LocatorDoesNotExist" />
+          <s:enumeration value="OperationCancelled" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="FetchRecord_Binary">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="inLocatorId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="inMatchTerm" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="inRecordId" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="inRecordIdType" type="tns:RecordIdentifierType" />
+            <s:element minOccurs="1" maxOccurs="1" name="inReturnCoordinateSystem" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="FetchRecord_BinaryResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="FetchRecord_BinaryResult" type="s:base64Binary" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ReverseGeocode">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="inLocatorId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="matchTerm" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="point" type="tns:Point" />
+            <s:element minOccurs="1" maxOccurs="1" name="inputCoordinateSystem" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="maximumSearchRadius" type="s:double" />
+            <s:element minOccurs="1" maxOccurs="1" name="distanceUnits" type="tns:DistanceUnits" />
+            <s:element minOccurs="1" maxOccurs="1" name="maximumCount" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="returnCoordinateSystem" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:simpleType name="DistanceUnits">
+        <s:restriction base="s:string">
+          <s:enumeration value="Unknown" />
+          <s:enumeration value="Inches" />
+          <s:enumeration value="Points" />
+          <s:enumeration value="Feet" />
+          <s:enumeration value="Yards" />
+          <s:enumeration value="Miles" />
+          <s:enumeration value="NauticalMiles" />
+          <s:enumeration value="Millimeters" />
+          <s:enumeration value="Centimeters" />
+          <s:enumeration value="Meters" />
+          <s:enumeration value="Kilometers" />
+          <s:enumeration value="DecimalDegrees" />
+          <s:enumeration value="Decimeters" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="ReverseGeocodeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="ReverseGeocodeResult" nillable="true" type="tns:ReverseGeocodeResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ReverseGeocodeResult">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="TypeOfResult" type="tns:ReverseGeocodeResultCodes" />
+          <s:element minOccurs="0" maxOccurs="1" name="CustomMessage" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Limit" type="tns:ReverseGeocodeLimit" />
+          <s:element minOccurs="0" maxOccurs="1" name="LimitReason" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TableData" type="tns:LocatorTable" />
+          <s:element minOccurs="1" maxOccurs="1" name="CoordinateSystemStatus" type="tns:CoordinateProjectionStatus" />
+          <s:element minOccurs="1" maxOccurs="1" name="ReturnedCoordinateSystem" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="DuplicateLocationsMaximumEnclosingCount" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="ReverseGeocodeResultCodes">
+        <s:restriction base="s:string">
+          <s:enumeration value="NoMatchNoResult" />
+          <s:enumeration value="CustomMessage" />
+          <s:enumeration value="UnrecognisedTarget" />
+          <s:enumeration value="LocatorDoesNotExist" />
+          <s:enumeration value="OperationCancelled" />
+          <s:enumeration value="MethodNotSupported" />
+          <s:enumeration value="InputPointCoordinateConversionFailed" />
+          <s:enumeration value="Successful" />
+        </s:restriction>
+      </s:simpleType>
+      <s:simpleType name="ReverseGeocodeLimit">
+        <s:restriction base="s:string">
+          <s:enumeration value="NotApplicable" />
+          <s:enumeration value="MaximumSearchRadius" />
+          <s:enumeration value="MaximumCount" />
+          <s:enumeration value="LocatorMaximumSearchRadius" />
+          <s:enumeration value="LocatorMaximumCount" />
+          <s:enumeration value="LocatorOther" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="ReverseGeocode_Binary">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="inLocatorId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="matchTerm" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="point" type="tns:Point" />
+            <s:element minOccurs="1" maxOccurs="1" name="inputCoordinateSystem" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="maximumSearchRadius" type="s:double" />
+            <s:element minOccurs="1" maxOccurs="1" name="distanceUnits" type="tns:DistanceUnits" />
+            <s:element minOccurs="1" maxOccurs="1" name="maximumCount" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="returnCoordinateSystem" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ReverseGeocode_BinaryResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ReverseGeocode_BinaryResult" type="s:base64Binary" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Capabilities">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="inLocatorId" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CapabilitiesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="CapabilitiesResult" nillable="true" type="tns:LocatorCapabilities" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="LocatorCapabilities">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="TypeOfResult" type="tns:CapabilitiesResultCodes" />
+          <s:element minOccurs="1" maxOccurs="1" name="CoordinateSystem" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="TargetElements" type="tns:ArrayOfTargetElementDefinition" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="CapabilitiesResultCodes">
+        <s:restriction base="s:string">
+          <s:enumeration value="LocatorDoesNotExist" />
+          <s:enumeration value="OperationCancelled" />
+          <s:enumeration value="CapabilitiesListed" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="ArrayOfTargetElementDefinition">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="TargetElementDefinition" nillable="true" type="tns:TargetElementDefinition" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="TargetElementDefinition">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="TargetElementIdentity" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TargetElementName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TargetElementDescription" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="ListLocators">
+        <s:complexType />
+      </s:element>
+      <s:element name="ListLocatorsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ListLocatorsResult" type="tns:ArrayOfRemoteLocator" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfRemoteLocator">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="RemoteLocator" nillable="true" type="tns:RemoteLocator" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="RemoteLocator">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="LocatorName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="LocatorDescription" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="LocatorId" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="LocatorMatchedRecord" type="tns:LocatorMatchedRecord" />
+      <s:element name="LocatorTable" type="tns:LocatorTable" />
+      <s:complexType name="LocatorMatchedRecord">
+        <s:sequence minOccurs="1" maxOccurs="1">
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="unbounded" name="C" type="tns:LocatorColumn" />
+            <s:element minOccurs="1" maxOccurs="1" name="R" type="tns:LocatorRow" />
+          </s:sequence>
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="LocatorTable">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="C" type="tns:LocatorColumn" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="R" type="tns:LocatorRow" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="LocatorColumn">
+        <s:attribute name="n" type="s:string" />
+        <s:attribute name="t" type="tns:ColumnTypeCodes" />
+      </s:complexType>
+      <s:complexType name="LocatorRow">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="V" nillable="true" type="s:string" />
+        </s:sequence>
+        <s:attribute name="id" type="s:string" />
+      </s:complexType>
+      <s:simpleType name="ColumnTypeCodes">
+        <s:restriction base="s:string">
+          <s:enumeration value="Integer" />
+          <s:enumeration value="Long" />
+          <s:enumeration value="String" />
+          <s:enumeration value="ByteArray" />
+          <s:enumeration value="DateTime" />
+          <s:enumeration value="Decimal" />
+          <s:enumeration value="Byte" />
+          <s:enumeration value="Double" />
+          <s:enumeration value="Single" />
+          <s:enumeration value="Short" />
+          <s:enumeration value="Char" />
+          <s:enumeration value="Point" />
+          <s:enumeration value="Envelope" />
+          <s:enumeration value="Unknown" />
+        </s:restriction>
+      </s:simpleType>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="RectifySoapIn">
+    <wsdl:part name="parameters" element="tns:Rectify" />
+  </wsdl:message>
+  <wsdl:message name="RectifySoapOut">
+    <wsdl:part name="parameters" element="tns:RectifyResponse" />
+  </wsdl:message>
+  <wsdl:message name="Rectify_BinarySoapIn">
+    <wsdl:part name="parameters" element="tns:Rectify_Binary" />
+  </wsdl:message>
+  <wsdl:message name="Rectify_BinarySoapOut">
+    <wsdl:part name="parameters" element="tns:Rectify_BinaryResponse" />
+  </wsdl:message>
+  <wsdl:message name="GeocodeSoapIn">
+    <wsdl:part name="parameters" element="tns:Geocode" />
+  </wsdl:message>
+  <wsdl:message name="GeocodeSoapOut">
+    <wsdl:part name="parameters" element="tns:GeocodeResponse" />
+  </wsdl:message>
+  <wsdl:message name="Geocode_BinarySoapIn">
+    <wsdl:part name="parameters" element="tns:Geocode_Binary" />
+  </wsdl:message>
+  <wsdl:message name="Geocode_BinarySoapOut">
+    <wsdl:part name="parameters" element="tns:Geocode_BinaryResponse" />
+  </wsdl:message>
+  <wsdl:message name="MatchSoapIn">
+    <wsdl:part name="parameters" element="tns:Match" />
+  </wsdl:message>
+  <wsdl:message name="MatchSoapOut">
+    <wsdl:part name="parameters" element="tns:MatchResponse" />
+  </wsdl:message>
+  <wsdl:message name="Match_BinarySoapIn">
+    <wsdl:part name="parameters" element="tns:Match_Binary" />
+  </wsdl:message>
+  <wsdl:message name="Match_BinarySoapOut">
+    <wsdl:part name="parameters" element="tns:Match_BinaryResponse" />
+  </wsdl:message>
+  <wsdl:message name="FetchRecordSoapIn">
+    <wsdl:part name="parameters" element="tns:FetchRecord" />
+  </wsdl:message>
+  <wsdl:message name="FetchRecordSoapOut">
+    <wsdl:part name="parameters" element="tns:FetchRecordResponse" />
+  </wsdl:message>
+  <wsdl:message name="FetchRecord_BinarySoapIn">
+    <wsdl:part name="parameters" element="tns:FetchRecord_Binary" />
+  </wsdl:message>
+  <wsdl:message name="FetchRecord_BinarySoapOut">
+    <wsdl:part name="parameters" element="tns:FetchRecord_BinaryResponse" />
+  </wsdl:message>
+  <wsdl:message name="ReverseGeocodeSoapIn">
+    <wsdl:part name="parameters" element="tns:ReverseGeocode" />
+  </wsdl:message>
+  <wsdl:message name="ReverseGeocodeSoapOut">
+    <wsdl:part name="parameters" element="tns:ReverseGeocodeResponse" />
+  </wsdl:message>
+  <wsdl:message name="ReverseGeocode_BinarySoapIn">
+    <wsdl:part name="parameters" element="tns:ReverseGeocode_Binary" />
+  </wsdl:message>
+  <wsdl:message name="ReverseGeocode_BinarySoapOut">
+    <wsdl:part name="parameters" element="tns:ReverseGeocode_BinaryResponse" />
+  </wsdl:message>
+  <wsdl:message name="CapabilitiesSoapIn">
+    <wsdl:part name="parameters" element="tns:Capabilities" />
+  </wsdl:message>
+  <wsdl:message name="CapabilitiesSoapOut">
+    <wsdl:part name="parameters" element="tns:CapabilitiesResponse" />
+  </wsdl:message>
+  <wsdl:message name="ListLocatorsSoapIn">
+    <wsdl:part name="parameters" element="tns:ListLocators" />
+  </wsdl:message>
+  <wsdl:message name="ListLocatorsSoapOut">
+    <wsdl:part name="parameters" element="tns:ListLocatorsResponse" />
+  </wsdl:message>
+  <wsdl:portType name="LocatorHubSoap">
+    <wsdl:operation name="Rectify">
+      <wsdl:input message="tns:RectifySoapIn" />
+      <wsdl:output message="tns:RectifySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Rectify_Binary">
+      <wsdl:input message="tns:Rectify_BinarySoapIn" />
+      <wsdl:output message="tns:Rectify_BinarySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Geocode">
+      <wsdl:input message="tns:GeocodeSoapIn" />
+      <wsdl:output message="tns:GeocodeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Geocode_Binary">
+      <wsdl:input message="tns:Geocode_BinarySoapIn" />
+      <wsdl:output message="tns:Geocode_BinarySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Match">
+      <wsdl:input message="tns:MatchSoapIn" />
+      <wsdl:output message="tns:MatchSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Match_Binary">
+      <wsdl:input message="tns:Match_BinarySoapIn" />
+      <wsdl:output message="tns:Match_BinarySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="FetchRecord">
+      <wsdl:input message="tns:FetchRecordSoapIn" />
+      <wsdl:output message="tns:FetchRecordSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="FetchRecord_Binary">
+      <wsdl:input message="tns:FetchRecord_BinarySoapIn" />
+      <wsdl:output message="tns:FetchRecord_BinarySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ReverseGeocode">
+      <wsdl:input message="tns:ReverseGeocodeSoapIn" />
+      <wsdl:output message="tns:ReverseGeocodeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ReverseGeocode_Binary">
+      <wsdl:input message="tns:ReverseGeocode_BinarySoapIn" />
+      <wsdl:output message="tns:ReverseGeocode_BinarySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Capabilities">
+      <wsdl:input message="tns:CapabilitiesSoapIn" />
+      <wsdl:output message="tns:CapabilitiesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ListLocators">
+      <wsdl:input message="tns:ListLocatorsSoapIn" />
+      <wsdl:output message="tns:ListLocatorsSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="LocatorHubSoap" type="tns:LocatorHubSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="Rectify">
+      <soap:operation soapAction="http://www.esriuk.com/locatorhub/Rectify" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Rectify_Binary">
+      <soap:operation soapAction="http://www.esriuk.com/locatorhub/Rectify_Binary" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Geocode">
+      <soap:operation soapAction="http://www.esriuk.com/locatorhub/Geocode" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Geocode_Binary">
+      <soap:operation soapAction="http://www.esriuk.com/locatorhub/Geocode_Binary" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Match">
+      <soap:operation soapAction="http://www.esriuk.com/locatorhub/Match" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Match_Binary">
+      <soap:operation soapAction="http://www.esriuk.com/locatorhub/Match_Binary" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FetchRecord">
+      <soap:operation soapAction="http://www.esriuk.com/locatorhub/FetchRecord" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FetchRecord_Binary">
+      <soap:operation soapAction="http://www.esriuk.com/locatorhub/FetchRecord_Binary" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReverseGeocode">
+      <soap:operation soapAction="http://www.esriuk.com/locatorhub/ReverseGeocode" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReverseGeocode_Binary">
+      <soap:operation soapAction="http://www.esriuk.com/locatorhub/ReverseGeocode_Binary" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Capabilities">
+      <soap:operation soapAction="http://www.esriuk.com/locatorhub/Capabilities" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListLocators">
+      <soap:operation soapAction="http://www.esriuk.com/locatorhub/ListLocators" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="LocatorHubSoap12" type="tns:LocatorHubSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="Rectify">
+      <soap12:operation soapAction="http://www.esriuk.com/locatorhub/Rectify" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Rectify_Binary">
+      <soap12:operation soapAction="http://www.esriuk.com/locatorhub/Rectify_Binary" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Geocode">
+      <soap12:operation soapAction="http://www.esriuk.com/locatorhub/Geocode" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Geocode_Binary">
+      <soap12:operation soapAction="http://www.esriuk.com/locatorhub/Geocode_Binary" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Match">
+      <soap12:operation soapAction="http://www.esriuk.com/locatorhub/Match" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Match_Binary">
+      <soap12:operation soapAction="http://www.esriuk.com/locatorhub/Match_Binary" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FetchRecord">
+      <soap12:operation soapAction="http://www.esriuk.com/locatorhub/FetchRecord" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FetchRecord_Binary">
+      <soap12:operation soapAction="http://www.esriuk.com/locatorhub/FetchRecord_Binary" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReverseGeocode">
+      <soap12:operation soapAction="http://www.esriuk.com/locatorhub/ReverseGeocode" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReverseGeocode_Binary">
+      <soap12:operation soapAction="http://www.esriuk.com/locatorhub/ReverseGeocode_Binary" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Capabilities">
+      <soap12:operation soapAction="http://www.esriuk.com/locatorhub/Capabilities" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListLocators">
+      <soap12:operation soapAction="http://www.esriuk.com/locatorhub/ListLocators" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="LocatorHub">
+    <wsdl:port name="LocatorHubSoap" binding="tns:LocatorHubSoap">
+      <soap:address location="http://datahubstaging/lh/locatorhub.asmx" />
+    </wsdl:port>
+    <wsdl:port name="LocatorHubSoap12" binding="tns:LocatorHubSoap12">
+      <soap12:address location="http://datahubstaging/lh/locatorhub.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

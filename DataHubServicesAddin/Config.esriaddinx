@@ -1,0 +1,81 @@
+﻿<ESRI.Configuration xmlns="http://schemas.esri.com/Desktop/AddIns" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Name>DataHub Services Addin</Name>
+  <AddInID>{61f6d0d7-dfac-4c50-8b2d-f6da58c4f51d}</AddInID>
+  <Description>Provides Access to a set of online Maps and Gazetteers.</Description>
+  <Version>2.0</Version>
+  <Image>Images\DataHubServicesAddin.png</Image>
+  <Author>Esri UK</Author>
+  <Company>Esri UK</Company>
+  <Date>30/05/2013</Date>
+  <Targets>
+    <Target name="Desktop" version="10.1" />
+  </Targets>
+  <AddIn language="CLR" library="DataHubServicesAddin.dll" namespace="DataHubServicesAddin">
+    <ArcMap>
+      <Commands>
+        <Button id="ESRI_UK_DataHubArcGIS_DataHubCredentialsButton" class="DataHubCredentialsButton" message="Configures which user account to use to access the online services" caption="Account" tip="Account" category="Services" image="Images\DataHubCredentialsButton.png">
+          <Help heading="User Acccount">Configures which user account to use to access the online services</Help>
+        </Button>
+        <Button id="ESRI_UK_DataHubArcGIS_ConfigureLocatorsButton" class="ConfigureLocatorsButton" message="Configures the list of Locators which are available for immediate use in the toolbar." caption="Configure Locators" tip="Configure List of Locators" category="Services" image="Images\ConfigureLocatorsButton.png">
+          <Help heading="Configure Locators">Configures the list of Locators available for use on the toolbar.</Help>
+        </Button>
+        <ComboBox id="ESRI_UK_DataHubArcGIS_LocatorSearchQuery" class="LocatorSearchQuery" message="Contains the search text to perform the search with." caption="Locator Query" tip="Query or Search Expression" category="Services" image="Images\LocatorSearchQuery.png" sizeString="WWWWWWWWWWWWWWWWW" itemSizeString="WWWWWWWWWWWWWWWWW" hintText=" " editable="true">
+          <Help heading="Locator Query">The query or search expression that is to be looked up against a locator.</Help>
+        </ComboBox>
+        <Button id="ESRI_UK_DataHubArcGIS_AddMap" class="AddMapButton" message="Adds an online map." caption="Add Map" tip="Add an online Map" category="Services" image="Images\AddMap.png">
+          <Help heading="Add Map">Adds an online Map from the DataHub</Help>
+        </Button>
+        <ComboBox id="ESRI_UK_DataHubArcGIS_LocatorCombo" class="LocatorCombo" message="Contains the list of Locators which can be queried or searched." caption="Locator" tip="Specifies which Locator to search" category="Services" image="Images\LocatorCombo.png" editable="false" sizeString="WWWWWWWWWWWWWWWWW" itemSizeString="WWWWWWWWWWWWWWWWW" hintText="Please Configure">
+          <Help heading="Locator Choice">Contains the list of locators which can be searched.</Help>
+        </ComboBox>
+        <Button id="ESRI_UK_DataHubArcGIS_PerformSearchButton" class="LocatorSearchButton" message="Performs the Search with the provided query against the Locator." caption="Search" tip="Run Search" category="Services" image="Images\PerformSearchButton.png">
+          <Help heading="Run Search">Performs the Search with the provided query against the Locator.</Help>
+        </Button>
+        <Button id="ESRI_UK_DataHubArcGIS_ClearGraphicsButton" class="ClearGraphicsButton" message="Removes Locator Graphics from the Map, following a query" caption="Clear Graphics" tip="Clear Graphics" category="Services" image="">
+          <Help heading="Clear Graphics">Removes Locator Graphics from the Map, following a query</Help>
+        </Button>
+        <Button id="ESRI_UK_DataHubArcGIS_UseFuzzyButton" class="UseFuzzyButton" message="Specifies the type of search operation to perform." caption="Fuzzy" tip="Use Fuzzy Matching" category="Services" onDemand="false">
+          <Help heading="Use Fuzzy">Instructs the Locator to use fuzzy matching when searching a dataset.</Help>
+        </Button>
+        <Button id="ESRI_UK_DataHubArcGIS_UseStandardButton" class="UseStandardButton" message="Use Standard Matching when matching." caption="Standard" tip="Use Standard Matching" category="Services" onDemand="false">
+          <Help heading="Use Standard">Configures the matching engine to look for exact matches.</Help>
+        </Button>
+        <Button id="ESRI_UK_DataHubArcGIS_PanButton" class="PanMapButton" message="This option pans the map to a matched location. The alternative is to Zoom to the matched location." caption="Pan" tip="Pan Map to Matched Location" category="Services" onDemand="false">
+          <Help heading="Pan Map">This option pans the map to a matched location. The alternative is to Zoom to the matched location.</Help>
+        </Button>
+        <Button id="ESRI_UK_DataHubArcGIS_UseZoomButton" class="UseZoomButton" message="Zoom the map to the matched location." caption="Zoom" tip="Zoom Matched Location" category="Services" onDemand="false">
+          <Help heading="Zoom Map">This option zooms the map to the matched location. This option is only possible if the matched location has an extent. Otherwise the map is panned.</Help>
+        </Button>
+      </Commands>
+      <Menus>
+        <Menu id="ESRI_UK_DataHubArcGIS_DataHub" caption="Services" isRootMenu="false">
+          <Items>
+            <Button refID="ESRI_UK_DataHubArcGIS_UseStandardButton" />
+            <Button refID="ESRI_UK_DataHubArcGIS_UseFuzzyButton"  />
+            <Button refID="ESRI_UK_DataHubArcGIS_PanButton" separator="true" />
+            <Button refID="ESRI_UK_DataHubArcGIS_UseZoomButton" />
+            <Button refID="ESRI_UK_DataHubArcGIS_ClearGraphicsButton" separator="true" />
+            <Button refID="ESRI_UK_DataHubArcGIS_ConfigureLocatorsButton" />
+            <Button refID="ESRI_UK_DataHubArcGIS_DataHubCredentialsButton" separator="true" />
+          </Items>
+        </Menu>
+      </Menus>
+      <Toolbars>
+        <Toolbar id="ESRI_UK_DataHubArcGIS_DataHub_1" caption="Services" showInitially="true">
+          <Items>
+            <Menu refID="ESRI_UK_DataHubArcGIS_DataHub" />
+            <Item refID="ESRI_UK_DataHubArcGIS_LocatorSearchQuery" />
+            <Button refID="ESRI_UK_DataHubArcGIS_PerformSearchButton" />
+            <ComboBox refID="ESRI_UK_DataHubArcGIS_LocatorCombo" separator="true" />
+            <Button refID="ESRI_UK_DataHubArcGIS_AddMap" />
+          </Items>
+        </Toolbar>
+      </Toolbars>
+      <Extensions>
+        <Extension id="ESRI_UK_DataHubArcGIS_DataHubExtension" class="DataHubExtension" productName="Services" autoLoad="true">
+          <Description>The Services Extension provides access to online Maps and Gazetteers</Description>
+        </Extension>
+      </Extensions>
+    </ArcMap>
+  </AddIn>
+</ESRI.Configuration>
