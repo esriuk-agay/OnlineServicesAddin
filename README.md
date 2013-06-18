@@ -12,7 +12,8 @@ This is the source code for the Esri UK Online Services Addin. A compiled versio
 
 ## Instructions (Getting Started)
 
-There are three different ways of getting the source code from the GitHub web site: Clone, [fork](https://help.github.com/articles/fork-a-repo) and download zip
+There are three different ways of getting the source code from the GitHub web site: Clone, [fork](https://help.github.com/articles/fork-a-repo) and download zip.
+Once you have downloaded it open the project up in Visual Studio and compile it. Ensure that you have the ArcObjects SDK for the Microsoft.Net framework installed. The project will produce a .addin file.
 
 
 ## Requirements
