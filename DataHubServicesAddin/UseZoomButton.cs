@@ -31,7 +31,7 @@ namespace DataHubServicesAddin
         }
 
         /// <summary>
-        /// Called when [update].
+        /// Called when on update.
         /// </summary>
         protected override void OnUpdate()
         {
