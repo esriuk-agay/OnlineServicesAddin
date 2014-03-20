@@ -220,6 +220,7 @@
   </ItemGroup>
   <ItemGroup>
     <AddInContent Include="Images\AddMap.png" />
+    <AddInContent Include="Images\Clear.png" />
     <Content Include="Images\Configure.bmp" />
     <AddInContent Include="Images\ConfigureLocatorsButton.png" />
     <Content Include="Images\DataHubArcGIS.png" />

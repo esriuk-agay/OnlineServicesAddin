@@ -8,7 +8,7 @@
   <Company>Esri UK</Company>
   <Date>30/05/2013</Date>
   <Targets>
-    <Target name="Desktop" version="10.1" />
+    <Target name="Desktop" version="10.2" />
   </Targets>
   <AddIn language="CLR" library="DataHubServicesAddin.dll" namespace="DataHubServicesAddin">
     <ArcMap>
@@ -31,7 +31,7 @@
         <Button id="ESRI_UK_DataHubArcGIS_PerformSearchButton" class="LocatorSearchButton" message="Performs the Search with the provided query against the Locator." caption="Search" tip="Run Search" category="Services" image="Images\PerformSearchButton.png">
           <Help heading="Run Search">Performs the Search with the provided query against the Locator.</Help>
         </Button>
-        <Button id="ESRI_UK_DataHubArcGIS_ClearGraphicsButton" class="ClearGraphicsButton" message="Removes Locator Graphics from the Map, following a query" caption="Clear Graphics" tip="Clear Graphics" category="Services" image="">
+        <Button id="ESRI_UK_DataHubArcGIS_ClearGraphicsButton" class="ClearGraphicsButton" message="Removes Locator Graphics from the Map, following a query" caption="Clear Graphics" tip="Clear Graphics" category="Services" image="Images\Clear.png">
           <Help heading="Clear Graphics">Removes Locator Graphics from the Map, following a query</Help>
         </Button>
         <Button id="ESRI_UK_DataHubArcGIS_UseFuzzyButton" class="UseFuzzyButton" message="Specifies the type of search operation to perform." caption="Fuzzy" tip="Use Fuzzy Matching" category="Services" onDemand="false">
@@ -51,7 +51,7 @@
         <Menu id="ESRI_UK_DataHubArcGIS_DataHub" caption="Services" isRootMenu="false">
           <Items>
             <Button refID="ESRI_UK_DataHubArcGIS_UseStandardButton" />
-            <Button refID="ESRI_UK_DataHubArcGIS_UseFuzzyButton"  />
+            <Button refID="ESRI_UK_DataHubArcGIS_UseFuzzyButton" />
             <Button refID="ESRI_UK_DataHubArcGIS_PanButton" separator="true" />
             <Button refID="ESRI_UK_DataHubArcGIS_UseZoomButton" />
             <Button refID="ESRI_UK_DataHubArcGIS_ClearGraphicsButton" separator="true" />
