@@ -237,8 +237,19 @@ namespace DataHubServicesAddin.Dialogs
                 {
                     try
                     {
-                        this._Locators.ResetBindings();
+                        //remove old item from the list
+                        _Locators.Remove(lstLocators.SelectedItem as OnlineLocator);
+                        //pickup the new item from the dialog and try to add to the list
+                        OnlineLocator newloc = configureLocatorForm.ConfiguredLocator;
+                        LocatorHub.LocatorHub client = LocatorManager.CreateClient(newloc);
+                        LocatorCapabilities locatorCapabilities = client.Capabilities(newloc.GazId);
+                        newloc.Target = locatorCapabilities.TargetElements[0].TargetElementIdentity;
+                        _Locators.Add(newloc);
                         lstLocators.Refresh();
+                        lstLocators.SelectedItem = newloc;
+                        lstLocators.Refresh();
+                        this.lstLocators_SelectedIndexChanged(this, null);
+                        
                     }
                     catch (Exception)
                     {
