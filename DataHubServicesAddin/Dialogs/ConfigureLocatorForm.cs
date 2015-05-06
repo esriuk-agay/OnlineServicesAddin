@@ -284,6 +284,7 @@ namespace DataHubServicesAddin.Dialogs
                 }
 
                 this.ConfiguredLocator.Name = txtName.Text;
+                this.ConfiguredLocator.FieldNames = "LOCATOR_DESCRIPTION";
               
                 this.DialogResult = DialogResult.OK;
                 this.Close();

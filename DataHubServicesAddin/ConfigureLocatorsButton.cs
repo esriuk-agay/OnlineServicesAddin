@@ -15,13 +15,15 @@ namespace DataHubServicesAddin
         /// </summary>
         protected override void OnClick()
         {
-            ConfigureLocatorListForm configureLocatorListDialog = new ConfigureLocatorListForm(DataHubConfiguration.Current.Locators);
+            ConfigureLocatorListForm configureLocatorListDialog = new ConfigureLocatorListForm(DataHubConfiguration.Current.Locators,
+                DataHubConfiguration.Current.ZoomScale);
 
             DialogResult dialogResult = configureLocatorListDialog.ShowDialog();
 
             if (dialogResult == DialogResult.OK)
             {
                 DataHubConfiguration.Current.Locators = configureLocatorListDialog.ConfiguredLocators;
+                DataHubConfiguration.Current.ZoomScale = configureLocatorListDialog.ConfiguredZoomScale;
 
                 DataHubConfiguration.Current.Save();
                 LocatorCombo.Current.Populate();

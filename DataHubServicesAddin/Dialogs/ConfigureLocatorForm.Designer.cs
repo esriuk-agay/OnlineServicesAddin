@@ -33,6 +33,7 @@ namespace DataHubServicesAddin.Dialogs
             this.panel3 = new System.Windows.Forms.Panel();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel4 = new System.Windows.Forms.Panel();
             this.printDialog1 = new System.Windows.Forms.PrintDialog();
             this.pnlHub = new System.Windows.Forms.Panel();
@@ -62,14 +63,14 @@ namespace DataHubServicesAddin.Dialogs
             this.lblDhubLocator = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.cboDhubLocator = new System.Windows.Forms.ComboBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.panel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.pnlHub.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.Definition.SuspendLayout();
             this.pnlDataHub.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // butOK
@@ -86,7 +87,7 @@ namespace DataHubServicesAddin.Dialogs
             // button2
             // 
             this.button2.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.button2.Location = new System.Drawing.Point(597, 401);
+            this.button2.Location = new System.Drawing.Point(597, 402);
             this.button2.Margin = new System.Windows.Forms.Padding(2);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(56, 23);
@@ -129,6 +130,16 @@ namespace DataHubServicesAddin.Dialogs
             this.label6.TabIndex = 2;
             this.label6.Text = "Configure Locator";
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::DataHubServicesAddin.Properties.Resources.Edit_Locator_48;
+            this.pictureBox1.Location = new System.Drawing.Point(629, 3);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(2);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(49, 49);
+            this.pictureBox1.TabIndex = 1;
+            this.pictureBox1.TabStop = false;
+            // 
             // panel4
             // 
             this.panel4.BackColor = System.Drawing.Color.LightGray;
@@ -145,6 +156,7 @@ namespace DataHubServicesAddin.Dialogs
             // 
             // pnlHub
             // 
+            this.pnlHub.Controls.Add(this.label2);
             this.pnlHub.Controls.Add(this.groupBox2);
             this.pnlHub.Controls.Add(this.butConnect);
             this.pnlHub.Controls.Add(this.lblDesc);
@@ -155,7 +167,7 @@ namespace DataHubServicesAddin.Dialogs
             this.pnlHub.Location = new System.Drawing.Point(1, 16);
             this.pnlHub.Margin = new System.Windows.Forms.Padding(2);
             this.pnlHub.Name = "pnlHub";
-            this.pnlHub.Size = new System.Drawing.Size(430, 280);
+            this.pnlHub.Size = new System.Drawing.Size(430, 314);
             this.pnlHub.TabIndex = 11;
             // 
             // groupBox2
@@ -170,7 +182,7 @@ namespace DataHubServicesAddin.Dialogs
             this.groupBox2.Controls.Add(this.label9);
             this.groupBox2.Controls.Add(this.txtPassword);
             this.groupBox2.Controls.Add(this.txtUsername);
-            this.groupBox2.Location = new System.Drawing.Point(51, 41);
+            this.groupBox2.Location = new System.Drawing.Point(51, 66);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(343, 126);
             this.groupBox2.TabIndex = 20;
@@ -262,7 +274,7 @@ namespace DataHubServicesAddin.Dialogs
             // butConnect
             // 
             this.butConnect.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.butConnect.Location = new System.Drawing.Point(313, 171);
+            this.butConnect.Location = new System.Drawing.Point(313, 197);
             this.butConnect.Margin = new System.Windows.Forms.Padding(2);
             this.butConnect.Name = "butConnect";
             this.butConnect.Size = new System.Drawing.Size(81, 23);
@@ -276,17 +288,17 @@ namespace DataHubServicesAddin.Dialogs
             this.lblDesc.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblDesc.Location = new System.Drawing.Point(48, 231);
+            this.lblDesc.Location = new System.Drawing.Point(48, 259);
             this.lblDesc.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblDesc.Name = "lblDesc";
-            this.lblDesc.Size = new System.Drawing.Size(336, 41);
+            this.lblDesc.Size = new System.Drawing.Size(336, 39);
             this.lblDesc.TabIndex = 9;
             this.lblDesc.Text = "label6";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(2, 202);
+            this.label5.Location = new System.Drawing.Point(-1, 233);
             this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(46, 13);
@@ -299,7 +311,7 @@ namespace DataHubServicesAddin.Dialogs
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cboLocator.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboLocator.FormattingEnabled = true;
-            this.cboLocator.Location = new System.Drawing.Point(49, 198);
+            this.cboLocator.Location = new System.Drawing.Point(49, 230);
             this.cboLocator.Margin = new System.Windows.Forms.Padding(2);
             this.cboLocator.Name = "cboLocator";
             this.cboLocator.Size = new System.Drawing.Size(345, 21);
@@ -456,15 +468,13 @@ namespace DataHubServicesAddin.Dialogs
             this.cboDhubLocator.Size = new System.Drawing.Size(345, 21);
             this.cboDhubLocator.TabIndex = 7;
             // 
-            // pictureBox1
+            // label2
             // 
-            this.pictureBox1.Image = global::DataHubServicesAddin.Properties.Resources.Edit_Locator_48;
-            this.pictureBox1.Location = new System.Drawing.Point(629, 3);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(2);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(49, 49);
-            this.pictureBox1.TabIndex = 1;
-            this.pictureBox1.TabStop = false;
+            this.label2.Location = new System.Drawing.Point(51, 42);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(343, 21);
+            this.label2.TabIndex = 21;
+            this.label2.Text = "e.g. http://www.myserver.com/locatorhub/locatorhub.svc";
             // 
             // ConfigureLocatorForm
             // 
@@ -485,6 +495,7 @@ namespace DataHubServicesAddin.Dialogs
             this.Text = "Configure Locator";
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.pnlHub.ResumeLayout(false);
             this.pnlHub.PerformLayout();
             this.groupBox2.ResumeLayout(false);
@@ -494,7 +505,6 @@ namespace DataHubServicesAddin.Dialogs
             this.Definition.ResumeLayout(false);
             this.pnlDataHub.ResumeLayout(false);
             this.pnlDataHub.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -536,6 +546,7 @@ namespace DataHubServicesAddin.Dialogs
         private System.Windows.Forms.Button butConnect;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ComboBox cboUrl;
+        private System.Windows.Forms.Label label2;
 
     }
 }

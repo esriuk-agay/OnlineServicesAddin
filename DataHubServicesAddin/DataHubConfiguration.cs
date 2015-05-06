@@ -37,6 +37,8 @@ namespace DataHubServicesAddin
         private const string CONFIG_SAVE_PATH = @"\ESRIUK\DataHub\OnlineServicesToolbar\";
         private const string CONFIG_FILE_NAME = "DataHubConfig.xml";
 
+        private const int CONFIG_DEFAULT_ZOOM = 1250;
+
 
         /// <summary>
         /// Constructor
@@ -67,6 +69,18 @@ namespace DataHubServicesAddin
 
                         wr.WriteStartElement("DataHubConfiguration");
 
+                        if (!string.IsNullOrEmpty(this.DataHubHttp))
+                        {
+                            wr.WriteStartElement("DataHubHttp");
+                            wr.WriteAttributeString("url", this.DataHubHttp);
+                            wr.WriteEndElement();
+                        }
+                        if (!string.IsNullOrEmpty(this.DataHubHttps))
+                        {
+                            wr.WriteStartElement("DataHubHttps");
+                            wr.WriteAttributeString("url", this.DataHubHttps);
+                            wr.WriteEndElement();
+                        }
                         wr.WriteStartElement("DataHub");
                         wr.WriteAttributeString("user", this.UserName);
                         wr.WriteAttributeString("password", this.Password);
@@ -75,7 +89,8 @@ namespace DataHubServicesAddin
                         wr.WriteStartElement("LocatorHub");
                         wr.WriteAttributeString("usefuzzy", this.UseFuzzy.ToString());
                         wr.WriteAttributeString("usepan", this.UsePan.ToString());
-                        wr.WriteAttributeString("lastlocatorid", this.LastLocatorId.ToString());
+                        wr.WriteAttributeString("lastlocatorid", this.LastLocatorId);
+                        wr.WriteAttributeString("zoomscale", this.ZoomScale.ToString());
                         wr.WriteEndElement();
 
                         wr.WriteStartElement("Locators");
@@ -91,6 +106,7 @@ namespace DataHubServicesAddin
                             wr.WriteAttributeString("Username", locator.Username);
                             wr.WriteAttributeString("Password", locator.Password);
                             wr.WriteAttributeString("TokenUrl", locator.TokenUrl);
+                            wr.WriteAttributeString("FieldNames", locator.FieldNames);
                             wr.WriteEndElement();
                         }
                         wr.WriteEndElement();
@@ -130,7 +146,16 @@ namespace DataHubServicesAddin
                 if (File.Exists(filename) == true)
                 {
                     dom.Load(filename);
-
+                    XmlNode dhubhttp = dom.SelectSingleNode("./DataHubConfiguration/DataHubHttp");
+                    if (dhubhttp != null)
+                    {
+                        this.DataHubHttp = dhubhttp.Attributes.GetNamedItem("url").InnerText;
+                    }
+                    XmlNode dhubhttps = dom.SelectSingleNode("./DataHubConfiguration/DataHubHttps");
+                    if (dhubhttps != null)
+                    {
+                        this.DataHubHttps = dhubhttps.Attributes.GetNamedItem("url").InnerText;
+                    }
                     XmlNode dhub = dom.SelectSingleNode("./DataHubConfiguration/DataHub");
                     if (dhub != null)
                     {
@@ -144,28 +169,32 @@ namespace DataHubServicesAddin
                         this.UsePan = System.Convert.ToBoolean(lh.Attributes.GetNamedItem("usepan").InnerText);
                         this.UseFuzzy = System.Convert.ToBoolean(lh.Attributes.GetNamedItem("usefuzzy").InnerText);
                         LastLocatorId = FetchAttributeValue(lh, "lastlocatorid");
-
+                        string zoomStr = FetchAttributeValue(lh, "zoomscale");
+                        this.ZoomScale = String.IsNullOrEmpty(zoomStr) ? CONFIG_DEFAULT_ZOOM : int.Parse(zoomStr);
                     }
 
 
-
-                    XmlNode locator = dom.SelectSingleNode("./DataHubConfiguration/Locators");
-
                     this.Locators = new List<OnlineLocator>();
-
-                    foreach (XmlNode xmlNode in locator.SelectNodes("./Locator"))
+                    XmlNode locator = dom.SelectSingleNode("./DataHubConfiguration/Locators");
+                    if (locator != null)
                     {
-                        OnlineLocator onlineLocator = new OnlineLocator();
-                        onlineLocator.Name = FetchAttributeValue(xmlNode, "Name");
-                        onlineLocator.Description = FetchAttributeValue(xmlNode, "Description");
-                        onlineLocator.GazId = FetchAttributeValue(xmlNode, "LocatorId");
-                        onlineLocator.Url = FetchAttributeValue(xmlNode, "Url");
-                        onlineLocator.Target = FetchAttributeValue(xmlNode, "Target");
-                        onlineLocator.Authentication = (AuthenticationMode)Enum.Parse(typeof(AuthenticationMode), FetchAttributeValue(xmlNode, "Authentication"));
-                        onlineLocator.Username = FetchAttributeValue(xmlNode, "Username");
-                        onlineLocator.Password = FetchAttributeValue(xmlNode, "Password");
-                        onlineLocator.TokenUrl = FetchAttributeValue(xmlNode, "TokenUrl");
-                        this.Locators.Add(onlineLocator);
+                        foreach (XmlNode xmlNode in locator.SelectNodes("./Locator"))
+                        {
+                            OnlineLocator onlineLocator = new OnlineLocator();
+                            onlineLocator.Name = FetchAttributeValue(xmlNode, "Name");
+                            onlineLocator.Description = FetchAttributeValue(xmlNode, "Description");
+                            onlineLocator.GazId = FetchAttributeValue(xmlNode, "LocatorId");
+                            onlineLocator.Url = FetchAttributeValue(xmlNode, "Url");
+                            onlineLocator.Target = FetchAttributeValue(xmlNode, "Target");
+                            onlineLocator.Authentication = (AuthenticationMode)Enum.Parse(typeof(AuthenticationMode), FetchAttributeValue(xmlNode, "Authentication"));
+                            onlineLocator.Username = FetchAttributeValue(xmlNode, "Username");
+                            onlineLocator.Password = FetchAttributeValue(xmlNode, "Password");
+                            onlineLocator.TokenUrl = FetchAttributeValue(xmlNode, "TokenUrl");
+                            string fieldNames = FetchAttributeValue(xmlNode, "FieldNames");
+                            if (string.IsNullOrEmpty(fieldNames)) fieldNames = "LOCATOR_DESCRIPTION";
+                            onlineLocator.FieldNames = fieldNames;
+                            this.Locators.Add(onlineLocator);
+                        }
                     }
                 }
                 else
@@ -173,6 +202,7 @@ namespace DataHubServicesAddin
                     //never run before. set things up to be empty
                     this.LastLocatorId = String.Empty;
                     this.Locators = new List<OnlineLocator>();
+                    this.ZoomScale = CONFIG_DEFAULT_ZOOM;
                 }
 
             }
@@ -288,6 +318,24 @@ namespace DataHubServicesAddin
             set;
         }
 
+        // Zoom scale when no extent is returned
+        public int ZoomScale
+        {
+            get;
+            set;
+        }
+
+        public string DataHubHttp
+        {
+            get;
+            set;
+        }
+
+        public string DataHubHttps
+        {
+            get;
+            set;
+        }
         #endregion
     }
 }

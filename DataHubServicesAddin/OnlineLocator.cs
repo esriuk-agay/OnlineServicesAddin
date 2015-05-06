@@ -105,6 +105,40 @@ namespace DataHubServicesAddin
         /// The token URL.
         /// </value>
         public string TokenUrl { get; set; }
+
+        /// <summary>
+        /// Gets or sets the comma-separated list of field names.
+        /// </summary>
+        /// <value>
+        /// Comma-separated list of field names.
+        /// </value>
+        public string FieldNames { get; set; }
+
+        public string[] FieldList()
+        {
+            return this.FieldNames.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+        }
+
+        /// <summary>
+        /// Create a new OnlineLocator instance by cloning this one
+        /// </summary>
+        /// <returns>A clone of this OnlineLocator</returns>
+        public OnlineLocator Clone()
+        {
+            OnlineLocator l = new OnlineLocator();
+            l.Id = this.Id;
+            l.Name = this.Name;
+            l.Url = this.Url;
+            l.GazId = this.GazId;
+            l.Description = this.Description;
+            l.Target = this.Target;
+            l.Authentication = this.Authentication;
+            l.Username = this.Username;
+            l.Password = this.Password;
+            l.TokenUrl = this.TokenUrl;
+            l.FieldNames = this.FieldNames;
+            return l;
+        }
     }
 
     /// <summary>

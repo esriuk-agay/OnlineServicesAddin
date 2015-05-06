@@ -160,6 +160,7 @@ namespace DataHubServicesAddin
                 (callout as IBalloonCallout).Style = esriBalloonCalloutStyle.esriBCSRoundedRectangle;
                 formattedTextSymbol.Background = callout as ITextBackground;
                 callout.AnchorPoint = point;
+                callout.LeaderTolerance = 0.0;
 
                 ITextElement textElement = new TextElementClass();
                 string CalloutText = LocatorDescription.Replace("|LOCATOR_SEPARATOR|", System.Environment.NewLine);
@@ -278,11 +279,12 @@ namespace DataHubServicesAddin
                         envelope.SpatialReference = map.SpatialReference;
                         envelope.PutCoords(minX, minY, maxX, maxY);
                         envelope = this.ConvertToCoordinateSystem<EnvelopeClass>(envelope as EnvelopeClass, coordinateSystem, map.SpatialReference);
+                        envelope.Expand(1.2, 1.2, true);
                         ZoomTo(envelope);
                     }
                     else
                     {
-                        PanTo(point);
+                        ZoomTo(point, DataHubConfiguration.Current.ZoomScale);
                     }
                 }
             }
@@ -315,6 +317,28 @@ namespace DataHubServicesAddin
             }
         }
 
+        private void ZoomTo(IPoint point, int scale)
+        {
+            try
+            {
+                IMxDocument mxDocument = null;
+                ESRI.ArcGIS.Carto.IActiveView activeView = null;
+                IEnvelope envelope = null;
+
+                mxDocument = ArcMap.Application.Document as IMxDocument;
+                activeView = (ESRI.ArcGIS.Carto.IActiveView)mxDocument.FocusMap;
+                envelope = activeView.Extent.Envelope;
+                envelope.CenterAt(point.Envelope.LowerLeft);
+                activeView.Extent = envelope;
+                mxDocument.FocusMap.MapScale = (double)scale;
+                activeView.Refresh();
+                return;
+            }
+            catch (Exception ex)
+            {
+                ShowError(ex);
+            }
+        }
 
         /// <summary>
         /// Pans to a Location
@@ -494,7 +518,15 @@ namespace DataHubServicesAddin
 
                     string[] values = matchResult.MatchedRecord.R.V;
                     string[] point = values[locatorPopupForm.ColumnLookup["LOCATOR_POINT"]].Split(new string[] {","},  StringSplitOptions.RemoveEmptyEntries);
-                    string description = values[locatorPopupForm.ColumnLookup["LOCATOR_DESCRIPTION"]];
+                    // string description = values[locatorPopupForm.ColumnLookup["LOCATOR_DESCRIPTION"]];
+                    string[] fieldNames = onlineLocator.FieldList();
+                    StringBuilder sb = new StringBuilder(values[locatorPopupForm.ColumnLookup[fieldNames[0]]]);
+                    for (int i = 1; i < fieldNames.Length; i++)
+                    {
+                        sb.Append("|LOCATOR_SEPARATOR|");
+                        sb.Append(values[locatorPopupForm.ColumnLookup[fieldNames[i]]]);
+                    }
+                    string description = sb.ToString();
                     string[] extent = values[locatorPopupForm.ColumnLookup["LOCATOR_ENVELOPE"]].Split(new string[] {","},  StringSplitOptions.RemoveEmptyEntries);
                     AddPoint(point[0].ToDouble(),point[1].ToDouble(), matchResult.ReturnedCoordinateSystem, description, extent[0].ToDouble(), extent[1].ToDouble(), extent[2].ToDouble(), extent[3].ToDouble());
 

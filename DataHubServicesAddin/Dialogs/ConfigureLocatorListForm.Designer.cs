@@ -37,12 +37,14 @@ namespace DataHubServicesAddin.Dialogs
             this.panel3 = new System.Windows.Forms.Panel();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel4 = new System.Windows.Forms.Panel();
             this.butMoveLocatorDown = new System.Windows.Forms.Button();
             this.cboTarget = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.butMoveLocatorUp = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -62,8 +64,8 @@ namespace DataHubServicesAddin.Dialogs
             this.butAddLocator.Location = new System.Drawing.Point(451, 132);
             this.butAddLocator.Margin = new System.Windows.Forms.Padding(2);
             this.butAddLocator.Name = "butAddLocator";
-            this.butAddLocator.Size = new System.Drawing.Size(65, 23);
-            this.butAddLocator.TabIndex = 1;
+            this.butAddLocator.Size = new System.Drawing.Size(67, 23);
+            this.butAddLocator.TabIndex = 3;
             this.butAddLocator.Text = "Add";
             this.butAddLocator.UseVisualStyleBackColor = true;
             this.butAddLocator.Click += new System.EventHandler(this.butAddLocator_Click);
@@ -74,7 +76,7 @@ namespace DataHubServicesAddin.Dialogs
             this.butRemoveLocator.Margin = new System.Windows.Forms.Padding(2);
             this.butRemoveLocator.Name = "butRemoveLocator";
             this.butRemoveLocator.Size = new System.Drawing.Size(67, 23);
-            this.butRemoveLocator.TabIndex = 2;
+            this.butRemoveLocator.TabIndex = 5;
             this.butRemoveLocator.Text = "Remove";
             this.butRemoveLocator.UseVisualStyleBackColor = true;
             this.butRemoveLocator.Click += new System.EventHandler(this.butRemoveLocator_Click);
@@ -85,7 +87,7 @@ namespace DataHubServicesAddin.Dialogs
             this.butEditLocatorDefinition.Margin = new System.Windows.Forms.Padding(2);
             this.butEditLocatorDefinition.Name = "butEditLocatorDefinition";
             this.butEditLocatorDefinition.Size = new System.Drawing.Size(67, 23);
-            this.butEditLocatorDefinition.TabIndex = 12;
+            this.butEditLocatorDefinition.TabIndex = 4;
             this.butEditLocatorDefinition.Text = "Edit";
             this.butEditLocatorDefinition.UseVisualStyleBackColor = true;
             this.butEditLocatorDefinition.Click += new System.EventHandler(this.butEditLocatorDefinition_Click);
@@ -96,7 +98,7 @@ namespace DataHubServicesAddin.Dialogs
             this.butOK.Margin = new System.Windows.Forms.Padding(2);
             this.butOK.Name = "butOK";
             this.butOK.Size = new System.Drawing.Size(63, 23);
-            this.butOK.TabIndex = 6;
+            this.butOK.TabIndex = 10;
             this.butOK.Text = "OK";
             this.butOK.UseVisualStyleBackColor = true;
             this.butOK.Click += new System.EventHandler(this.butOK_Click);
@@ -108,7 +110,7 @@ namespace DataHubServicesAddin.Dialogs
             this.butCancel.Margin = new System.Windows.Forms.Padding(2);
             this.butCancel.Name = "butCancel";
             this.butCancel.Size = new System.Drawing.Size(67, 23);
-            this.butCancel.TabIndex = 7;
+            this.butCancel.TabIndex = 11;
             this.butCancel.Text = "Cancel";
             this.butCancel.UseVisualStyleBackColor = true;
             this.butCancel.Click += new System.EventHandler(this.butCancel_Click);
@@ -148,6 +150,16 @@ namespace DataHubServicesAddin.Dialogs
             this.label6.TabIndex = 2;
             this.label6.Text = "Configure Locator List";
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::DataHubServicesAddin.Properties.Resources.Edit_Locator_48;
+            this.pictureBox1.Location = new System.Drawing.Point(480, 2);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(2);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(47, 50);
+            this.pictureBox1.TabIndex = 1;
+            this.pictureBox1.TabStop = false;
+            // 
             // panel4
             // 
             this.panel4.BackColor = System.Drawing.Color.LightGray;
@@ -165,7 +177,7 @@ namespace DataHubServicesAddin.Dialogs
             this.butMoveLocatorDown.Margin = new System.Windows.Forms.Padding(2);
             this.butMoveLocatorDown.Name = "butMoveLocatorDown";
             this.butMoveLocatorDown.Size = new System.Drawing.Size(26, 28);
-            this.butMoveLocatorDown.TabIndex = 4;
+            this.butMoveLocatorDown.TabIndex = 2;
             this.butMoveLocatorDown.UseVisualStyleBackColor = true;
             this.butMoveLocatorDown.Click += new System.EventHandler(this.butMoveLocatorDown_Click);
             // 
@@ -177,7 +189,7 @@ namespace DataHubServicesAddin.Dialogs
             this.cboTarget.Margin = new System.Windows.Forms.Padding(2);
             this.cboTarget.Name = "cboTarget";
             this.cboTarget.Size = new System.Drawing.Size(246, 21);
-            this.cboTarget.TabIndex = 17;
+            this.cboTarget.TabIndex = 7;
             this.cboTarget.SelectedIndexChanged += new System.EventHandler(this.cboTarget_SelectedIndexChanged);
             // 
             // label2
@@ -190,16 +202,6 @@ namespace DataHubServicesAddin.Dialogs
             this.label2.TabIndex = 16;
             this.label2.Text = "Target:";
             // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = global::DataHubServicesAddin.Properties.Resources.Edit_Locator_48;
-            this.pictureBox1.Location = new System.Drawing.Point(480, 2);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(2);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(47, 50);
-            this.pictureBox1.TabIndex = 1;
-            this.pictureBox1.TabStop = false;
-            // 
             // butMoveLocatorUp
             // 
             this.butMoveLocatorUp.Image = global::DataHubServicesAddin.Properties.Resources.Up_16_n_p;
@@ -207,9 +209,27 @@ namespace DataHubServicesAddin.Dialogs
             this.butMoveLocatorUp.Margin = new System.Windows.Forms.Padding(2);
             this.butMoveLocatorUp.Name = "butMoveLocatorUp";
             this.butMoveLocatorUp.Size = new System.Drawing.Size(26, 28);
-            this.butMoveLocatorUp.TabIndex = 3;
+            this.butMoveLocatorUp.TabIndex = 1;
             this.butMoveLocatorUp.UseVisualStyleBackColor = true;
             this.butMoveLocatorUp.Click += new System.EventHandler(this.butMoveLocatorUp_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(15, 242);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(65, 13);
+            this.label1.TabIndex = 8;
+            this.label1.Text = "Zoom scale:";
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(88, 240);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.ShortcutsEnabled = false;
+            this.textBox1.Size = new System.Drawing.Size(100, 20);
+            this.textBox1.TabIndex = 9;
+            this.textBox1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox1_KeyPress);
             // 
             // ConfigureLocatorListForm
             // 
@@ -218,6 +238,8 @@ namespace DataHubServicesAddin.Dialogs
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.butCancel;
             this.ClientSize = new System.Drawing.Size(529, 273);
+            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.cboTarget);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.panel3);
@@ -261,5 +283,7 @@ namespace DataHubServicesAddin.Dialogs
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.ComboBox cboTarget;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }

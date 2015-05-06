@@ -30,18 +30,25 @@ namespace DataHubServicesAddin.Dialogs
             InitializeComponent();
         }
 
-        public ConfigureLocatorListForm(List<OnlineLocator> locators)
+        public ConfigureLocatorListForm(List<OnlineLocator> locators, int zoomScale)
             : this()
         {
-            this._Locators = new BindingList<OnlineLocator>(locators);
+            List<OnlineLocator> locatorscopy = new List<OnlineLocator>();
+            foreach (OnlineLocator locator in locators)
+            {
+                locatorscopy.Add(locator.Clone());
+            }
+            this._Locators = new BindingList<OnlineLocator>(locatorscopy);
             lstLocators.DataSource = _Locators;
             lstLocators.DisplayMember = "Name";
             lstLocators.ValueMember = "Name";
             lstLocators.Refresh();
+            this.textBox1.Text = zoomScale.ToString();
             ConfigureUI();
         }
 
         internal List<OnlineLocator> ConfiguredLocators { get; private set; }
+        internal int ConfiguredZoomScale { get; private set; }
 
         /// <summary>
         /// Class used to hold an id and a description
@@ -92,13 +99,22 @@ namespace DataHubServicesAddin.Dialogs
         /// </summary>
         public void ConfigureUI()
         {
-            //try
-            //{
-            //    if (lstLocators.SelectedItem != null) butRemoveLocator.Enabled = true; else butRemoveLocator.Enabled = false;
-            //    butMoveLocatorDown.Enabled = ((butRemoveLocator.Enabled == true) && (lstLocators.SelectedIndex < _Locators.Count - 1));
-            //    butMoveLocatorUp.Enabled = ((butRemoveLocator.Enabled == true) && (lstLocators.SelectedIndex >= 1));
-            //}
-            //catch (Exception) { }
+            try
+            {
+                if (lstLocators.SelectedItem != null)
+                {
+                    butRemoveLocator.Enabled = true;
+                    butEditLocatorDefinition.Enabled = true;
+                }
+                else
+                {
+                    butRemoveLocator.Enabled = false;
+                    this.butEditLocatorDefinition.Enabled = false;
+                }
+                butMoveLocatorDown.Enabled = ((butRemoveLocator.Enabled == true) && (lstLocators.SelectedIndex < _Locators.Count - 1));
+                butMoveLocatorUp.Enabled = ((butRemoveLocator.Enabled == true) && (lstLocators.SelectedIndex >= 1));
+            }
+            catch (Exception) { }
 
         }
 
@@ -160,7 +176,8 @@ namespace DataHubServicesAddin.Dialogs
             {
                 if (lstLocators.SelectedItem != null)
                     _Locators.Remove(lstLocators.SelectedItem as OnlineLocator);
-                    lstLocators.Refresh();
+                lstLocators.Refresh();
+                ConfigureUI();
             }
             catch (Exception)
             {
@@ -310,6 +327,10 @@ namespace DataHubServicesAddin.Dialogs
                 this.DialogResult = DialogResult.OK;
            
                 this.ConfiguredLocators = this._Locators.ToList();
+                int zoomScale;
+                int.TryParse(this.textBox1.Text, out zoomScale);
+                if (zoomScale <= 0) zoomScale = 1250;
+                this.ConfiguredZoomScale = zoomScale;
 
                 this.Close();
             }
@@ -407,5 +428,12 @@ namespace DataHubServicesAddin.Dialogs
             }
         }
 
+        private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
     }
 }

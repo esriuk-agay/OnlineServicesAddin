@@ -2,11 +2,11 @@
   <Name>DataHub Services Addin</Name>
   <AddInID>{61f6d0d7-dfac-4c50-8b2d-f6da58c4f51d}</AddInID>
   <Description>Provides Access to a set of online Maps and Gazetteers.</Description>
-  <Version>2.0</Version>
+  <Version>2.1</Version>
   <Image>Images\DataHubServicesAddin.png</Image>
   <Author>Esri UK</Author>
   <Company>Esri UK</Company>
-  <Date>30/05/2013</Date>
+  <Date>06/05/2015</Date>
   <Targets>
     <Target name="Desktop" version="10.2" />
   </Targets>

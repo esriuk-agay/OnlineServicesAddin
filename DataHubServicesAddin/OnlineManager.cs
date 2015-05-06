@@ -34,7 +34,8 @@ namespace DataHubServicesAddin
           
             MetaData.MetaDataSoapClient client = null;
 
-            string url = _DataHubHttps;
+            string url = DataHubConfiguration.Current.DataHubHttps;
+            if (string.IsNullOrEmpty(url)) url = _DataHubHttps;
             if (url.StartsWith("https", StringComparison.InvariantCultureIgnoreCase))
             {
                 client = new MetaData.MetaDataSoapClient(new BasicHttpBinding(BasicHttpSecurityMode.Transport), new EndpointAddress(url));
@@ -81,7 +82,8 @@ namespace DataHubServicesAddin
 
             MetaData.MetaDataSoapClient client = null;
 
-            string url = _DataHubHttps;
+            string url = DataHubConfiguration.Current.DataHubHttps;
+            if (string.IsNullOrEmpty(url)) url = _DataHubHttps;
             if (url.StartsWith("https", StringComparison.InvariantCultureIgnoreCase))
             {
                 client = new MetaData.MetaDataSoapClient(new BasicHttpBinding(BasicHttpSecurityMode.Transport), new EndpointAddress(url));
@@ -101,10 +103,12 @@ namespace DataHubServicesAddin
                 }
             }
 
+            string path = DataHubConfiguration.Current.DataHubHttp;
+            if (string.IsNullOrEmpty(path)) path = _DataHubHttp;
 
-            string path = _DataHubHttp;
-
-            path = path.Substring(0, path.Length - @"/MetaData.asmx".Length);
+            
+            //path = path.Substring(0, path.Length - @"/MetaData.asmx".Length);
+            path = path.Substring(0, path.LastIndexOf("/"));
 
 
             dt = new DataTable();
