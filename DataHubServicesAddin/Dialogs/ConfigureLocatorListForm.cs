@@ -113,6 +113,7 @@ namespace DataHubServicesAddin.Dialogs
                 }
                 butMoveLocatorDown.Enabled = ((butRemoveLocator.Enabled == true) && (lstLocators.SelectedIndex < _Locators.Count - 1));
                 butMoveLocatorUp.Enabled = ((butRemoveLocator.Enabled == true) && (lstLocators.SelectedIndex >= 1));
+                butFieldsConfig.Enabled = (lstLocators.SelectedIndex >= 0);
             }
             catch (Exception) { }
 
@@ -374,6 +375,8 @@ namespace DataHubServicesAddin.Dialogs
                 OnlineLocator onlineLocator = lstLocators.SelectedItem as OnlineLocator;
                 Target target = cboTarget.SelectedItem as Target;
                 onlineLocator.Target = target.Id;
+                // Reset the list of field names to just LOCATOR_DESCRIPTION
+                // onlineLocator.FieldNames = "LOCATOR_DESCRIPTION";
                 ConfigureUI();
             }
             catch (Exception ex)
@@ -433,6 +436,18 @@ namespace DataHubServicesAddin.Dialogs
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
             {
                 e.Handled = true;
+            }
+        }
+
+        private void butFieldsConfig_Click(object sender, EventArgs e)
+        {
+            // TODO: put up a double list thingy to choose/order fields
+            if (lstLocators.SelectedItem == null) return;
+            OnlineLocator selectedLocator = lstLocators.SelectedItem as OnlineLocator;
+            ConfigureFieldListForm fieldListDialog = new ConfigureFieldListForm(selectedLocator);
+            if (fieldListDialog.ShowDialog() == DialogResult.OK)
+            {
+                selectedLocator.FieldNames = fieldListDialog.ConfiguredFields;
             }
         }
     }

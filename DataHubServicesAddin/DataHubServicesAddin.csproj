@@ -116,6 +116,12 @@
     <Compile Include="DataHubConfiguration.cs" />
     <Compile Include="DataHubCredentialsButton.cs" />
     <Compile Include="DataHubExtension.cs" />
+    <Compile Include="Dialogs\ConfigureFieldListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\ConfigureFieldListForm.Designer.cs">
+      <DependentUpon>ConfigureFieldListForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\ErrorForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -226,10 +232,15 @@
     <AddInContent Include="Images\ConfigureLocatorsButton.png" />
     <Content Include="Images\DataHubArcGIS.png" />
     <AddInContent Include="Images\DataHubCredentialsButton.png" />
+    <None Include="Resources\Left 16 n p.png" />
+    <None Include="Resources\Right 16 n p.png" />
     <None Include="Resources\Down 16 n p.png" />
     <None Include="Resources\Up 16 n p.png" />
     <None Include="Resources\Edit-Locator-48.gif" />
     <None Include="Resources\Error-2-48.gif" />
+    <EmbeddedResource Include="Dialogs\ConfigureFieldListForm.resx">
+      <DependentUpon>ConfigureFieldListForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Images\Drill.bmp" />
     <Content Include="Images\LocatorCombo.png" />
     <Content Include="Images\LocatorSearchQuery.png" />
